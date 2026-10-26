@@ -3,6 +3,8 @@ name: Java CI with Maven
 on:
   push:
     branches: [ main ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
 
 jobs:
   build:
@@ -17,3 +19,5 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: Build & Test
+        run: mvn clean verify sonar:sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
